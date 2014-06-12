@@ -24,6 +24,7 @@
   "homepage": "https://github.com/DamonOehlman/keg",
   "dependencies": {
     "debug": "^1",
+    "formatter": "~0.4",
     "leveldown": "~0.10",
     "levelup": "~0.18",
     "mapleTree": "~0.5"
