@@ -32,6 +32,7 @@
     "semver": "^2"
   },
   "devDependencies": {
+    "rimraf": "^2",
     "supertest": "~0.13",
     "tape": "^2"
   }
