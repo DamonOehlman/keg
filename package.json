@@ -1,7 +1,7 @@
 {
   "name": "keg",
   "version": "0.0.0",
-  "description": "A leveldb powered registry for versioned things (beer, powder, etc)",
+  "description": "A leveldb powered registry for immutable versioned things (beer, powder, etc)",
   "main": "index.js",
   "scripts": {
     "test": "node test/all.js",
