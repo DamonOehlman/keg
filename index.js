@@ -38,7 +38,11 @@ module.exports = function(opts, callback) {
   // create the server instance
   var server = registry.server = http.createServer(handleRequest);
 
+  // load the method handlers
+  var handlers = require('./methods')(registry, opts);
+
   function handleRequest(req, res) {
+    var handler = handlers[req.method.toLowerCase()];
     var package = req.url.split(rePartsDelim);
     var version = package[1] && semver.valid(package[1]);
 
@@ -49,6 +53,12 @@ module.exports = function(opts, callback) {
     if (! version) {
       return abort(res, 'requireValidVersion');
     }
+
+    if (! handler) {
+      return abort(res, 'unsupportedMethod');
+    }
+
+    handler(req, res);
   }
 
   debug('server listening on port: ' + port);
