@@ -58,7 +58,10 @@ module.exports = function(opts, callback) {
       return abort(res, 'unsupportedMethod');
     }
 
-    handler(req, res);
+    handler(req, res, {
+      name: package[0],
+      version: version
+    });
   }
 
   debug('server listening on port: ' + port);
