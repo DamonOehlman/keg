@@ -33,7 +33,9 @@ module.exports = function(opts, callback) {
   var registry = new EventEmitter();
 
   // create the db
-  var db = registry.db = levelup(datapath);
+  var db = registry.db = levelup(datapath, {
+    valueEncoding: 'json'
+  });
 
   // create the server instance
   var server = registry.server = http.createServer(handleRequest);
@@ -43,7 +45,7 @@ module.exports = function(opts, callback) {
 
   function handleRequest(req, res) {
     var handler = handlers[req.method.toLowerCase()];
-    var package = req.url.split(rePartsDelim);
+    var package = req.url.slice(1).split(rePartsDelim);
     var version = package[1] && semver.valid(package[1]);
 
     if (! package[1]) {
