@@ -1,6 +1,8 @@
 var EventEmitter = require('events').EventEmitter;
+var debug = require('debug')('nokku-registry');
 var path = require('path');
 var http = require('http');
+var levelup = require('levelup');
 var mapleTree = require('mapleTree');
 
 /**
@@ -29,17 +31,21 @@ module.exports = function(opts, callback) {
   // create the server instance
   var server = registry.server = http.createServer(handleRequest);
 
-
   function handleRequest(req, res) {
   }
 
-  server.listen(function(err) {
+  debug('server listening on port: ' + port);
+  server.listen(port, function(err) {
+    debug('server started listening, err: ', err);
     registry.emit(err ? 'error' : 'ready', err);
 
     if (typeof callback == 'function') {
       callback(err, registry);
     }
   });
+
+  // attach a stop function for a convenient server close
+  registry.stop = server.close.bind(server);
 
   return registry;
 };
