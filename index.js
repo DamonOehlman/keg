@@ -1,11 +1,12 @@
 var EventEmitter = require('events').EventEmitter;
-var debug = require('debug')('nokku-registry');
+var debug = require('debug')('keg');
 var path = require('path');
 var http = require('http');
 var levelup = require('levelup');
 var mapleTree = require('mapleTree');
 var formatter = require('formatter');
-var formatAddress = formatter('http://{{ address }}:{{ port }}/');
+var formatAddress = formatter('http://{{ address }}:{{ port }}');
+var abort = require('./lib/abort');
 
 /**
   # nokku-registry
@@ -23,6 +24,7 @@ var formatAddress = formatter('http://{{ address }}:{{ port }}/');
 module.exports = function(opts, callback) {
   var port = (opts || {}).port || 6700;
   var datapath = path.resolve((opts || {}).datapath || 'data');
+  var rePartsDelim = /[\@\:]/;
 
   // only bind to localhost by default
   var hostname = (opts || {}).hostname || 'localhost';
@@ -37,6 +39,11 @@ module.exports = function(opts, callback) {
   var server = registry.server = http.createServer(handleRequest);
 
   function handleRequest(req, res) {
+    var package = req.url.split(rePartsDelim);
+
+    if (! package[1]) {
+      return abort(res, 'requireVersion');
+    }
   }
 
   debug('server listening on port: ' + port);
