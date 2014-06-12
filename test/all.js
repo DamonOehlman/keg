@@ -1,6 +1,13 @@
 var test = require('tape');
 var keg = require('..');
+var path = require('path');
+var rimraf = require('rimraf');
 var registry;
+
+test('can reset the data storage', function(t) {
+  t.plan(1);
+  rimraf(path.resolve(__dirname, '..', 'data'), t.ifError);
+});
 
 test('can create a registry instance', function(t) {
   t.plan(1);
