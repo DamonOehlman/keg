@@ -1,6 +1,10 @@
+var request = require('supertest');
+
 module.exports = function(registry, test) {
-  test('registry has a url', function(t) {
+  test('attempt to put unversioned thing fails', function(t) {
     t.plan(1);
-    t.ok(registry.server);
+    request(registry.url)
+      .put('/testpack')
+      .expect(500, t.pass.bind(t, 'done'));
   });
 };

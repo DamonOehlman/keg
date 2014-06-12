@@ -4,7 +4,7 @@
   "description": "A leveldb powered registry for versioned things (beer, powder, etc)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node test/all.js",
     "gendocs": "gendocs > README.md"
   },
   "repository": {
