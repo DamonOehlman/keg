@@ -23,11 +23,11 @@
   },
   "homepage": "https://github.com/DamonOehlman/nokku-registry",
   "dependencies": {
-    "leveldown": "^0.10.2",
-    "levelup": "^0.18.3",
-    "mapleTree": "^0.5.1"
+    "leveldown": "~0.10",
+    "levelup": "~0.18",
+    "mapleTree": "~0.5"
   },
   "devDependencies": {
-    "tape": "^2.13.2"
+    "tape": "^2"
   }
 }
