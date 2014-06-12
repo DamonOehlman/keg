@@ -4,6 +4,8 @@ var path = require('path');
 var http = require('http');
 var levelup = require('levelup');
 var mapleTree = require('mapleTree');
+var formatter = require('formatter');
+var formatAddress = formatter('http://{{ address }}:{{ port }}/');
 
 /**
   # nokku-registry
@@ -19,8 +21,11 @@ var mapleTree = require('mapleTree');
 **/
 
 module.exports = function(opts, callback) {
-  var port = (opts || {}).port || 5500;
+  var port = (opts || {}).port || 6700;
   var datapath = path.resolve((opts || {}).datapath || 'data');
+
+  // only bind to localhost by default
+  var hostname = (opts || {}).hostname || 'localhost';
 
   // create an event emitter as the registry instance
   var registry = new EventEmitter();
@@ -35,7 +40,12 @@ module.exports = function(opts, callback) {
   }
 
   debug('server listening on port: ' + port);
-  server.listen(port, function(err) {
+  server.listen(port, hostname, function(err) {
+    var address = (! err) && server.address();
+
+    // set the registry url
+    registry.url = address && formatAddress(address);
+
     debug('server started listening, err: ', err);
     registry.emit(err ? 'error' : 'ready', err);
 
