@@ -26,8 +26,7 @@
     "debug": "^1",
     "formatter": "~0.4",
     "leveldown": "~0.10",
-    "levelup": "~0.18",
-    "mapleTree": "~0.5"
+    "levelup": "~0.18"
   },
   "devDependencies": {
     "supertest": "~0.13",
