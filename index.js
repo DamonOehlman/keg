@@ -3,8 +3,8 @@ var debug = require('debug')('keg');
 var path = require('path');
 var http = require('http');
 var levelup = require('levelup');
-var mapleTree = require('mapleTree');
 var formatter = require('formatter');
+var semver = require('semver');
 var formatAddress = formatter('http://{{ address }}:{{ port }}');
 var abort = require('./lib/abort');
 

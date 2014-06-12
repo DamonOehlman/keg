@@ -26,7 +26,8 @@
     "debug": "^1",
     "formatter": "~0.4",
     "leveldown": "~0.10",
-    "levelup": "~0.18"
+    "levelup": "~0.18",
+    "semver": "^2"
   },
   "devDependencies": {
     "supertest": "~0.13",
