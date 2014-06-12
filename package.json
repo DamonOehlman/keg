@@ -28,6 +28,7 @@
     "formatter": "~0.4",
     "leveldown": "~0.10",
     "levelup": "~0.18",
+    "padded-semver": "^2",
     "semver": "^2"
   },
   "devDependencies": {
