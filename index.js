@@ -40,9 +40,14 @@ module.exports = function(opts, callback) {
 
   function handleRequest(req, res) {
     var package = req.url.split(rePartsDelim);
+    var version = package[1] && semver.valid(package[1]);
 
     if (! package[1]) {
       return abort(res, 'requireVersion');
+    }
+
+    if (! version) {
+      return abort(res, 'requireValidVersion');
     }
   }
 
