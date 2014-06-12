@@ -9,7 +9,7 @@ var formatAddress = formatter('http://{{ address }}:{{ port }}');
 var abort = require('./lib/abort');
 
 /**
-  # nokku-registry
+  # keg
 
   This is a simple service registry that is used by
   [nokku](https://github.com/DamonOehlman/nokku) to track local service

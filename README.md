@@ -1,13 +1,13 @@
-# nokku-registry
+# keg
 
 This is a simple service registry that is used by
 [nokku](https://github.com/DamonOehlman/nokku) to track local service
 installations and versions.
 
 
-[![NPM](https://nodei.co/npm/nokku-registry.png)](https://nodei.co/npm/nokku-registry/)
+[![NPM](https://nodei.co/npm/keg.png)](https://nodei.co/npm/keg/)
 
-[![experimental](https://img.shields.io/badge/stability-experimental-red.svg)](https://github.com/badges/stability-badges) [![Build Status](https://img.shields.io/travis/DamonOehlman/nokku-registry.svg?branch=master)](https://travis-ci.org/DamonOehlman/nokku-registry) 
+[![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/badges/stability-badges) [![Build Status](https://img.shields.io/travis/DamonOehlman/keg.svg?branch=master)](https://travis-ci.org/DamonOehlman/keg) 
 
 ## Usage
 
