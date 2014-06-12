@@ -1,0 +1,32 @@
+{
+  "name": "nokku-registry",
+  "version": "0.0.0",
+  "description": "A leveldb powered registry for local applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gendocs": "gendocs > README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DamonOehlman/nokku-registry.git"
+  },
+  "keywords": [
+    "nokku",
+    "registry",
+    "application"
+  ],
+  "author": "Damon Oehlman <damon.oehlman@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DamonOehlman/nokku-registry/issues"
+  },
+  "homepage": "https://github.com/DamonOehlman/nokku-registry",
+  "dependencies": {
+    "levelup": "^0.18.3",
+    "mapleTree": "^0.5.1"
+  },
+  "devDependencies": {
+    "tape": "^2.13.2"
+  }
+}
