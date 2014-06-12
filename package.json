@@ -1,7 +1,7 @@
 {
-  "name": "nokku-registry",
+  "name": "keg",
   "version": "0.0.0",
-  "description": "A leveldb powered registry for local applications",
+  "description": "A leveldb powered registry for versioned things (beer, powder, etc)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/DamonOehlman/nokku-registry.git"
+    "url": "https://github.com/DamonOehlman/keg.git"
   },
   "keywords": [
     "nokku",
@@ -19,9 +19,9 @@
   "author": "Damon Oehlman <damon.oehlman@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DamonOehlman/nokku-registry/issues"
+    "url": "https://github.com/DamonOehlman/keg/issues"
   },
-  "homepage": "https://github.com/DamonOehlman/nokku-registry",
+  "homepage": "https://github.com/DamonOehlman/keg",
   "dependencies": {
     "debug": "^1",
     "leveldown": "~0.10",
