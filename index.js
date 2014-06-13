@@ -16,6 +16,10 @@ var router = require('./router');
   installations and versions.  It could in theory be used to store anything
   though.
 
+  ## Endpoints
+
+  <<< docs/endpoints.md
+
   ## Usage
 
   To be completed.

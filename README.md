@@ -10,6 +10,27 @@ though.
 
 [![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/badges/stability-badges) [![Build Status](https://img.shields.io/travis/DamonOehlman/keg.svg?branch=master)](https://travis-ci.org/DamonOehlman/keg) 
 
+## Endpoints
+
+```
+PUT /name/semver
+```
+
+Put a versioned, named payload of JSON metadata into the registry.
+
+```
+GET /name/semver
+```
+
+Get a versioned, named payload of JSON metadata from the registry.
+
+```
+GET /name
+```
+
+Get the latest version of a named payload of JSON metadata from the registry.
+
+
 ## Usage
 
 To be completed.
