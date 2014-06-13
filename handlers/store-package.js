@@ -1,7 +1,7 @@
 var abort = require('./abort');
 var debug = require('debug')('keg:put');
 var concat = require('concat-stream');
-var p = require('padded-semver');
+var svkey = require('semver-key');
 
 function read(req, callback) {
   var encoding = 'json';
@@ -39,7 +39,7 @@ module.exports = function(registry, opts) {
       }
 
       // create the key using padded semver so lexi sorting works
-      key = package.name + ':' + p.pad(package.version);
+      key = package.name + '!' + svkey(package.version);
       debug('looking for existing package: ' + key);
 
       db.get(key, function(err, value) {
