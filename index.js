@@ -6,14 +6,15 @@ var levelup = require('levelup');
 var formatter = require('formatter');
 var semver = require('semver');
 var formatAddress = formatter('http://{{ address }}:{{ port }}');
-var abort = require('./lib/abort');
+var router = require('./router');
 
 /**
   # keg
 
   This is a simple service registry that is used by
   [nokku](https://github.com/DamonOehlman/nokku) to track local service
-  installations and versions.
+  installations and versions.  It could in theory be used to store anything
+  though.
 
   ## Usage
 
@@ -38,33 +39,7 @@ module.exports = function(opts, callback) {
   });
 
   // create the server instance
-  var server = registry.server = http.createServer(handleRequest);
-
-  // load the method handlers
-  var handlers = require('./methods')(registry, opts);
-
-  function handleRequest(req, res) {
-    var handler = handlers[req.method.toLowerCase()];
-    var package = req.url.slice(1).split(rePartsDelim);
-    var version = package[1] && semver.valid(package[1]);
-
-    if (! package[1]) {
-      return abort(res, 'requireVersion');
-    }
-
-    if (! version) {
-      return abort(res, 'requireValidVersion');
-    }
-
-    if (! handler) {
-      return abort(res, 'unsupportedMethod');
-    }
-
-    handler(req, res, {
-      name: package[0],
-      version: version
-    });
-  }
+  var server = registry.server = http.createServer(router(registry, opts));
 
   debug('server listening on port: ' + port);
   server.listen(port, hostname, function(err) {

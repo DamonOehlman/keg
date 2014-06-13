@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/DamonOehlman/keg",
   "dependencies": {
+    "beeline": "^0.2.2",
     "concat-stream": "^1",
     "debug": "^1",
     "formatter": "~0.4",

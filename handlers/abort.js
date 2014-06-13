@@ -1,8 +1,10 @@
 var debug = require('debug')('keg:abort');
 var messages = {
+  noPackageData: 'No package data supplied',
+  emptyPackageName: 'No package name given',
   emptyPayload: 'Empty payload',
   requireVersion: 'A version is required to update a package',
-  requireValidVersion: 'A valid semantic version is required',
+  invalidPackageVersion: 'A valid semantic version is required',
   existingKey: 'The specified package and version already exists, cannot overwrite',
   unsupportedMethod: 'Unsupported method',
   putFailed: 'An error occurred while putting the data'
@@ -23,4 +25,6 @@ module.exports = function(res, code, err) {
   debug(statusCode + ': ' + message);
   res.writeHead(statusCode);
   res.end(message);
+
+  return false;
 };

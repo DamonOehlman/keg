@@ -1,4 +1,4 @@
-var abort = require('../lib/abort');
+var abort = require('./abort');
 var debug = require('debug')('keg:get');
 var p = require('padded-semver');
 

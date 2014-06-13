@@ -1,4 +1,4 @@
-var abort = require('../lib/abort');
+var abort = require('./abort');
 var debug = require('debug')('keg:put');
 var concat = require('concat-stream');
 var p = require('padded-semver');
@@ -33,7 +33,6 @@ module.exports = function(registry, opts) {
     var key;
 
     // TODO: tweak the encoding based on content type
-    debug('attempting to handle request: ' + req.url);
     read(req, function(err, data, encoding) {
       if (err) {
         return abort(res, err.message);
