@@ -2,7 +2,8 @@
 
 This is a simple service registry that is used by
 [nokku](https://github.com/DamonOehlman/nokku) to track local service
-installations and versions.
+installations and versions.  It could in theory be used to store anything
+though.
 
 
 [![NPM](https://nodei.co/npm/keg.png)](https://nodei.co/npm/keg/)
@@ -12,6 +13,12 @@ installations and versions.
 ## Usage
 
 To be completed.
+
+## Limitations
+
+- Uses [semver-key](https://github.com/DamonOehlman/semver-key) for item
+  keys which restricts to only using `major.minor.patch` semver strings (
+  i.e. no patch metadata).
 
 ## License(s)
 

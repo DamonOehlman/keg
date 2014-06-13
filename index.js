@@ -20,6 +20,12 @@ var router = require('./router');
 
   To be completed.
 
+  ## Limitations
+
+  - Uses [semver-key](https://github.com/DamonOehlman/semver-key) for item
+    keys which restricts to only using `major.minor.patch` semver strings (
+    i.e. no patch metadata).
+
 **/
 
 module.exports = function(opts, callback) {
