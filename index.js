@@ -25,7 +25,6 @@ var router = require('./router');
 module.exports = function(opts, callback) {
   var port = (opts || {}).port || 6700;
   var datapath = path.resolve((opts || {}).datapath || 'data');
-  var rePartsDelim = /[\@\:]/;
 
   // only bind to localhost by default
   var hostname = (opts || {}).hostname || 'localhost';
