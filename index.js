@@ -39,9 +39,7 @@ module.exports = function(opts, callback) {
   var registry = new EventEmitter();
 
   // create the db
-  var db = registry.db = levelup(datapath, {
-    valueEncoding: 'json'
-  });
+  var db = registry.db = levelup(datapath);
 
   // create the server instance
   var server = registry.server = http.createServer(router(registry, opts));
