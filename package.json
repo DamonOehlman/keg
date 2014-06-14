@@ -29,8 +29,7 @@
     "formatter": "~0.4",
     "leveldown": "~0.10",
     "levelup": "~0.18",
-    "semver": "^2",
-    "semver-key": "~0.1"
+    "slimver-key": "~0.2"
   },
   "devDependencies": {
     "rimraf": "^2",

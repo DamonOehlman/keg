@@ -1,7 +1,7 @@
 var abort = require('./abort');
 var debug = require('debug')('keg:put');
 var concat = require('concat-stream');
-var svkey = require('semver-key');
+var svkey = require('slimver-key');
 
 function read(req, callback) {
   var encoding = 'json';

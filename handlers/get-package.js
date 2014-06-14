@@ -1,6 +1,6 @@
 var abort = require('./abort');
 var debug = require('debug')('keg:get');
-var svkey = require('semver-key');
+var svkey = require('slimver-key');
 
 module.exports = function(registry, opts) {
   var db = registry.db;

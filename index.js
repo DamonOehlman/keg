@@ -4,7 +4,6 @@ var path = require('path');
 var http = require('http');
 var levelup = require('levelup');
 var formatter = require('formatter');
-var semver = require('semver');
 var formatAddress = formatter('http://{{ address }}:{{ port }}');
 var router = require('./router');
 
@@ -26,8 +25,8 @@ var router = require('./router');
 
   ## Limitations
 
-  - Uses [semver-key](https://github.com/DamonOehlman/semver-key) for item
-    keys which restricts to only using `major.minor.patch` semver strings (
+  - Uses [slimver](https://github.com/DamonOehlman/slimver-spec) for item
+    keys which restricts to only using `major.minor.patch` version strings (
     i.e. no patch metadata).
 
 **/
