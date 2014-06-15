@@ -27,6 +27,7 @@
     "concat-stream": "^1",
     "debug": "^1",
     "formatter": "~0.4",
+    "level-sublevel": "^5",
     "leveldown": "~0.10",
     "levelup": "~0.18",
     "slimver": "^0.1.1",
