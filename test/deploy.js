@@ -28,6 +28,7 @@ module.exports = function(registry, test) {
     request
       .get('/testpack/1.0.0')
       .expect('Content-Type', /json/)
+      .expect('x-keg-version', '1.0.0')
       .expect(200, { name: 'Fred' }, t.ifError);
   });
 
@@ -46,6 +47,7 @@ module.exports = function(registry, test) {
     request
       .get('/testpack/8.0.0')
       .expect('Content-Type', /json/)
+      .expect('x-keg-version', '8.0.0')
       .expect(200, { name: 'Frederick' }, t.ifError);
   });
 
@@ -59,6 +61,7 @@ module.exports = function(registry, test) {
     request
       .get('/testpack/1.0.5')
       .expect('Content-Type', /json/)
+      .expect('x-keg-version', '1.0.5')
       .expect(200, { name: 'Fred', age: 50 }, t.ifError);
   });
 
@@ -72,6 +75,7 @@ module.exports = function(registry, test) {
     request
       .get('/testpack/10.3.5')
       .expect('Content-Type', /json/)
+      .expect('x-keg-version', '10.3.5')
       .expect(200, { name: 'F', age: 51 }, t.ifError);
   });
 
@@ -80,6 +84,27 @@ module.exports = function(registry, test) {
     request
       .get('/testpack')
       .expect('Content-Type', /json/)
+      .expect('x-keg-version', '10.3.5')
       .expect(200, { name: 'F', age: 51 }, t.ifError);
+  });
+
+  test('deploy testpack 0.2.3', function(t) {
+    t.plan(1);
+    request.put('/testpack/0.2.3').send({ age: 2 }).expect(200, t.ifError);
+  });
+
+  test('get testpack 0.2.3', function(t) {
+    t.plan(1);
+    request.get('/testpack/0.2.3').expect(200, { age: 2 }, t.ifError);
+  });
+
+  test('deploy testpack 0.3.6', function(t) {
+    t.plan(1);
+    request.put('/testpack/0.3.6').send({ age: 3 }).expect(200, t.ifError);
+  });
+
+  test('get testpack 0.3.6', function(t) {
+    t.plan(1);
+    request.get('/testpack/0.3.6').expect(200, { age: 3 }, t.ifError);
   });
 };
