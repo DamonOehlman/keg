@@ -5,6 +5,9 @@ This is a simple service registry that is used by
 installations and versions.  It could in theory be used to store anything
 though.
 
+Uses more restrictive [slimver](https://github.com/DamonOehlman/slimver-spec)
+versioning over semver, so be aware of those limitations.
+
 
 [![NPM](https://nodei.co/npm/keg.png)](https://nodei.co/npm/keg/)
 
@@ -34,12 +37,6 @@ Get the latest version of a named payload of JSON metadata from the registry.
 ## Usage
 
 To be completed.
-
-## Limitations
-
-- Uses [semver-key](https://github.com/DamonOehlman/semver-key) for item
-  keys which restricts to only using `major.minor.patch` semver strings (
-  i.e. no patch metadata).
 
 ## License(s)
 

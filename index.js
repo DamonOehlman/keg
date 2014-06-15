@@ -15,6 +15,9 @@ var router = require('./router');
   installations and versions.  It could in theory be used to store anything
   though.
 
+  Uses more restrictive [slimver](https://github.com/DamonOehlman/slimver-spec)
+  versioning over semver, so be aware of those limitations.
+
   ## Endpoints
 
   <<< docs/endpoints.md
@@ -22,12 +25,6 @@ var router = require('./router');
   ## Usage
 
   To be completed.
-
-  ## Limitations
-
-  - Uses [slimver](https://github.com/DamonOehlman/slimver-spec) for item
-    keys which restricts to only using `major.minor.patch` version strings (
-    i.e. no patch metadata).
 
 **/
 
