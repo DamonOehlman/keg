@@ -12,47 +12,41 @@ module.exports = function(registry, opts) {
       limit: 1
     });
 
-    sendPackages(reader, res);
+    sendPackage(reader, res);
   }
 
   function getMatchingVersion(req, res, package) {
-    var range = slim.range(package.version).map(slim.unpack).map(svkey);
+    var keys = slim.range(package.version).map(svkey).reverse().map(function(k) {
+      return package.name + '!' + k;
+    });
     var reader = db.createReadStream({
-      start: package.name + '!' + range[1],
-      end: package.name + '!' + range[0]
+      start: keys[0],
+      end: keys[1],
+      limit: 1
     });
 
-    sendPackages(reader, res);
+    debug('looking for in range: ' + keys.join(' --> '));
+    sendPackage(reader, res);
   }
 
-  function sendPackages(reader, res) {
-    var writtenHead = false;
+  function sendPackage(reader, res) {
+    reader.on('data', function(data) {
+      var version = svkey.unpack(data.key.split('!')[1]);
 
-    function writeHead(data) {
       res.writeHead(200, {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-keg-version': version
       });
+      res.end(data.value);
 
-      return true;
-    }
-
-    reader
-      .on('data', function(data) {
-        var val = data.value;
-        var version = svkey.unpack(data.key.split('!')[0]);
-
-        writtenHead = writtenHead || writeHead(data);
-
-        val.version = version;
-        res.write(val);
-      })
-      .on('end', function() {
-        res.end();
-      });
+      reader.destroy();
+    });
   }
 
   return function(req, res, package) {
     var key;
+
+    debug('attempting to get package: ', package);
 
     // if we have no package version, get the latest item
     if (! package.version) {
