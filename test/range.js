@@ -27,4 +27,11 @@ module.exports = function(registry, test) {
       .expect('x-keg-version', '0.3.6')
       .expect(200, { age: 3 }, t.ifError);
   });
+
+  test('request for testpack ^0.4.0 returns 404', function(t) {
+    t.plan(1);
+    request
+      .get('/testpack/^0.4.0')
+      .expect(404, t.ifError);
+  });
 };

@@ -23,7 +23,8 @@ test('server has bound to localhost only', function(t) {
 
 test('run subtests', function(t) {
   require('./deploy')(registry, t.test);
-  require('./expression')(registry, t.test);
+  require('./get')(registry, t.test);
+  require('./range')(registry, t.test);
 });
 
 test('can stop the registry server', function(t) {

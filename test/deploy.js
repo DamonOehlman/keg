@@ -93,18 +93,8 @@ module.exports = function(registry, test) {
     request.put('/testpack/0.2.3').send({ age: 2 }).expect(200, t.ifError);
   });
 
-  test('get testpack 0.2.3', function(t) {
-    t.plan(1);
-    request.get('/testpack/0.2.3').expect(200, { age: 2 }, t.ifError);
-  });
-
   test('deploy testpack 0.3.6', function(t) {
     t.plan(1);
     request.put('/testpack/0.3.6').send({ age: 3 }).expect(200, t.ifError);
-  });
-
-  test('get testpack 0.3.6', function(t) {
-    t.plan(1);
-    request.get('/testpack/0.3.6').expect(200, { age: 3 }, t.ifError);
   });
 };
