@@ -29,6 +29,7 @@
     "formatter": "~0.4",
     "leveldown": "~0.10",
     "levelup": "~0.18",
+    "slimver": "^0.1.1",
     "slimver-key": "~0.2"
   },
   "devDependencies": {
