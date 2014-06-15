@@ -1,6 +1,7 @@
 var abort = require('./abort');
 var debug = require('debug')('keg:get');
 var svkey = require('slimver-key');
+var slim = require('slimver');
 
 module.exports = function(registry, opts) {
   var db = registry.db;
@@ -10,21 +11,40 @@ module.exports = function(registry, opts) {
       start: package.name,
       limit: 1
     });
+
+    sendPackages(reader, res);
+  }
+
+  function getMatchingVersion(req, res, package) {
+    var range = slim.range(package.version).map(slim.unpack).map(svkey);
+    var reader = db.createReadStream({
+      start: package.name + '!' + range[1],
+      end: package.name + '!' + range[0]
+    });
+
+    sendPackages(reader, res);
+  }
+
+  function sendPackages(reader, res) {
     var writtenHead = false;
 
     function writeHead(data) {
-      var parts = data.key.split('!');
-
       res.writeHead(200, {
-        'Content-Type': 'application/json',
-        'x-keg-version': svkey.unpack(parts[1])
+        'Content-Type': 'application/json'
       });
+
+      return true;
     }
 
     reader
       .on('data', function(data) {
+        var val = data.value;
+        var version = svkey.unpack(data.key.split('!')[0]);
+
         writtenHead = writtenHead || writeHead(data);
-        res.write(data.value);
+
+        val.version = version;
+        res.write(val);
       })
       .on('end', function() {
         res.end();
@@ -39,17 +59,6 @@ module.exports = function(registry, opts) {
       return getLatestItem(req, res, package);
     }
 
-    key = package.name + '!' + svkey(package.version);
-    db.get(key, { valueEncoding: 'utf-8' }, function(err, value) {
-      // if it already exists, then complain
-      if (err) {
-        return abort(res, err.notFound ? 'notFound' : '', err);
-      }
-
-      res.writeHead(200, {
-        'Content-Type': 'application/json'
-      });
-      res.end(value);
-    });
-  };
+    return getMatchingVersion(req, res, package);
+ };
 };
