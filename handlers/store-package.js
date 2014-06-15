@@ -27,7 +27,7 @@ function read(req, callback) {
 }
 
 module.exports = function(registry, opts) {
-  var db = registry.db;
+  var db = registry.db.sublevel('versions');
 
   return function(req, res, package) {
     var key;

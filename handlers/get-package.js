@@ -4,7 +4,7 @@ var svkey = require('slimver-key');
 var slim = require('slimver');
 
 module.exports = function(registry, opts) {
-  var db = registry.db;
+  var db = registry.db.sublevel('versions');
 
   function getLatestItem(req, res, package) {
     var reader = db.createReadStream({

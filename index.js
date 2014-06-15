@@ -3,6 +3,7 @@ var debug = require('debug')('keg');
 var path = require('path');
 var http = require('http');
 var levelup = require('levelup');
+var sublevel = require('level-sublevel');
 var formatter = require('formatter');
 var formatAddress = formatter('http://{{ address }}:{{ port }}');
 var router = require('./router');
@@ -39,7 +40,7 @@ module.exports = function(opts, callback) {
   var registry = new EventEmitter();
 
   // create the db
-  var db = registry.db = levelup(datapath);
+  var db = registry.db = sublevel(levelup(datapath));
 
   // create the server instance
   var server = registry.server = http.createServer(router(registry, opts));
