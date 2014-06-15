@@ -30,17 +30,27 @@ module.exports = function(registry, opts) {
   }
 
   function sendPackage(reader, res) {
-    reader.on('data', function(data) {
-      var version = svkey.unpack(data.key.split('!')[1]);
+    var found = false;
 
-      res.writeHead(200, {
-        'Content-Type': 'application/json',
-        'x-keg-version': version
+    reader
+      .on('data', function(data) {
+        var version = svkey.unpack(data.key.split('!')[1]);
+
+        res.writeHead(200, {
+          'Content-Type': 'application/json',
+          'x-keg-version': version
+        });
+        res.end(data.value);
+
+        found = true;
+        reader.destroy();
+      })
+      .on('end', function() {
+        if (! found) {
+          res.writeHead(404);
+          res.end('Not found');
+        }
       });
-      res.end(data.value);
-
-      reader.destroy();
-    });
   }
 
   return function(req, res, package) {
