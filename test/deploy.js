@@ -80,7 +80,6 @@ module.exports = function(registry, test) {
     request
       .get('/testpack')
       .expect('Content-Type', /json/)
-      .expect('x-keg-version', '10.3.5')
       .expect(200, { name: 'F', age: 51 }, t.ifError);
   });
 };
