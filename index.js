@@ -11,12 +11,11 @@ var router = require('./router');
 /**
   # keg
 
-  This is a simple service registry that is used by
+  This is a simple registry that is used by
   [nokku](https://github.com/DamonOehlman/nokku) to track local service
-  installations and versions.  It could in theory be used to store anything
-  though.
+  installations and versions.  Could be used to store any versioned data though.
 
-  Uses more restrictive [slimver](https://github.com/DamonOehlman/slimver-spec)
+  __NOTE:__ Uses more restrictive [slimver](https://github.com/DamonOehlman/slimver-spec)
   versioning over semver, so be aware of those limitations.
 
   ## Endpoints
