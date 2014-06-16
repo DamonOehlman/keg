@@ -14,9 +14,6 @@ module.exports = function(registry, opts) {
     '/`name`/`version`': packageRoutes
   });
 
-  function getPackage(req, res, tokens) {
-  }
-
   function putPackage(req, res, tokens) {
     if (validPackage(req, res, tokens)) {
       storePackage(req, res, tokens);
