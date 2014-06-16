@@ -11,7 +11,8 @@ module.exports = function(registry, opts) {
 
   var router = bee.route({
     '/`name`': packageRoutes,
-    '/`name`/`version`': packageRoutes
+    '/`name`/`version`': packageRoutes,
+    '/_changes': require('./handlers/changesfeed')(registry, opts)
   });
 
   function putPackage(req, res, tokens) {
