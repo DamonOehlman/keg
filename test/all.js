@@ -25,6 +25,7 @@ test('run subtests', function(t) {
   require('./deploy')(registry, t.test);
   require('./get')(registry, t.test);
   require('./range')(registry, t.test);
+  require('./changes')(registry, t.test);
 });
 
 test('can stop the registry server', function(t) {
