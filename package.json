@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/DamonOehlman/keg",
   "dependencies": {
+    "async": "^0.9.0",
     "beeline": "^0.2.2",
     "concat-stream": "^1",
     "debug": "^1",
@@ -33,6 +34,7 @@
     "level-sublevel": "^5",
     "leveldown": "~0.10",
     "levelup": "~0.18",
+    "monotonic-timestamp": "0.0.8",
     "slimver": "^0.1.1",
     "slimver-key": "~0.2"
   },

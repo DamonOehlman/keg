@@ -1,4 +1,5 @@
 var abort = require('./abort');
+var async = require('async');
 var debug = require('debug')('keg:put');
 var concat = require('concat-stream');
 var svkey = require('slimver-key');
@@ -48,7 +49,10 @@ module.exports = function(registry, opts) {
           return abort(res, 'existingKey');
         }
 
-        db.put(key, data, { valueEncoding: encoding }, function(err) {
+        async.series([
+          db.put.bind(db, key, data, { valueEncoding: encoding }),
+          registry.eventlog(key)
+        ], function(err) {
           if (err) {
             return abort(res, 'putFailed');
           }

@@ -44,6 +44,9 @@ module.exports = function(opts, callback) {
   // create the server instance
   var server = registry.server = http.createServer(router(registry, opts));
 
+  // create the event log
+  var eventlog = registry.eventlog = require('./eventlog')(registry, opts);
+
   debug('server listening on port: ' + port);
   server.listen(port, hostname, function(err) {
     var address = (! err) && server.address();
