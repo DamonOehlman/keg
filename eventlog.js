@@ -1,7 +1,9 @@
 var ts = require('monotonic-timestamp');
 
 module.exports = function(registry, opts) {
-  var db = registry.db.sublevel('eventlog');
+  var db = registry.db.sublevel('eventlog', {
+    valueEncoding: 'utf8'
+  });
 
   function write(line) {
     return function(callback) {
