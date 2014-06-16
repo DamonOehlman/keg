@@ -24,7 +24,6 @@ module.exports = function(registry, opts) {
   }
 
   function validPackage(req, res, package) {
-    console.log(package);
     if (! package) {
       return abort(res, 'noPackageData');
     }
