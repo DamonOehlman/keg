@@ -20,4 +20,9 @@ module.exports = function(registry, test) {
     t.plan(1);
     request.get('/t').expect(404, t.ifError);
   });
+
+  test('get testpack 0.2.1 ==> 404', function(t) {
+    t.plan(1);
+    request.get('/testpack/0.2.1').expect(404, t.ifError);
+  });
 };
