@@ -24,6 +24,7 @@ function writeData(read, req, res, vdb, opts) {
 
     if (end || ended) {
       debug('ended');
+      res.end();
       return read(end || ended, function() {});
     }
 
@@ -58,11 +59,12 @@ module.exports = function(registry, opts) {
 
   return function(req, res) {
     var opts = qs.parse(req.url.split('?')[1]);
+    var live = (opts || {}).live;
 
     debug('received changes feed request', [].slice.call(arguments, 2));
 
     pull(
-      pl.read(db, { tail: true, min: (opts || {}).since }),
+      pl.read(db, { tail: live, min: (opts || {}).since }),
       pull.Sink(writeData)(req, res, vdb, opts)
     )
   };
