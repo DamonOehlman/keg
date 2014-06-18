@@ -18,12 +18,13 @@ function writeData(read, req, res, vdb, opts) {
     var payload = parts && [data.key, parts[0], svkey.unpack(parts[1]) ];
 
     function sendPayload() {
-      res.write(JSON.stringify(payload));
+      res.write(JSON.stringify(payload) + '\n');
       read(null, next);
     }
 
     if (end || ended) {
-      return read(end || ended);
+      debug('ended');
+      return read(end || ended, function() {});
     }
 
     if (! writtenHead) {
