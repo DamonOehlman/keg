@@ -12,7 +12,7 @@ module.exports = function(registry, opts) {
       limit: 1
     });
 
-    sendPackage(reader, res);
+    sendPackage(reader, res, package);
   }
 
   function getMatchingVersion(req, res, package) {
@@ -26,15 +26,20 @@ module.exports = function(registry, opts) {
     });
 
     debug('looking for in range: ' + keys.join(' --> '));
-    sendPackage(reader, res);
+    sendPackage(reader, res, package);
   }
 
-  function sendPackage(reader, res) {
+  function sendPackage(reader, res, package) {
     var found = false;
 
     reader
       .on('data', function(data) {
-        var version = svkey.unpack(data.key.split('!')[1]);
+        var parts = data.key.split('!');
+        var version = svkey.unpack(parts[1]);
+
+        if (parts[0] !== package.name) {
+          return;
+        }
 
         res.writeHead(200, {
           'Content-Type': 'application/json',
