@@ -15,4 +15,9 @@ module.exports = function(registry, test) {
     t.plan(1);
     request.get('/testpack/0.3.7').expect(404, t.ifError);
   });
+
+  test('get latest page of non-existent package t ==> 404', function(t) {
+    t.plan(1);
+    request.get('/t').expect(404, t.ifError);
+  });
 };
