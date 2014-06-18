@@ -35,6 +35,8 @@
     "leveldown": "~0.10",
     "levelup": "~0.18",
     "monotonic-timestamp": "0.0.8",
+    "pull-level": "^1.1.10",
+    "pull-stream": "^2.23.0",
     "slimver": "^0.1.1",
     "slimver-key": "~0.2"
   },
