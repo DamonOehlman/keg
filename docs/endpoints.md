@@ -32,14 +32,8 @@ GET /_changes
 
 Get all the changes since the beginning of keg data. End once we have hit the last known change.
 
-```
-GET /_changes?since=%timestamp%
-```
+The following querystring options are supported:
 
-Get all the changes since the specified [monontonic-timestamp](https://github.com/dominictarr/monotonic-timestamp).  End once we have hit the last known change.
-
-```
-GET /_changes?live=true
-```
-
-Get all the changes since the beginning of time, but continue to listen once we are up to date.
+  - since=%timestamp% - get all the changes since the specified [monontonic-timestamp](https://github.com/dominictarr/monotonic-timestamp).
+  - includeDocs=true - get the docs in addition to the package and version information associated with a change
+  - live=true - once we hit the end continue to listen for new changes.
