@@ -7,9 +7,6 @@
     "test": "node test/all.js",
     "gendocs": "gendocs > README.md"
   },
-  "bin": {
-    "keg": "./bin/cli.js"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/DamonOehlman/keg.git"
