@@ -1,7 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 var debug = require('debug')('keg');
 var path = require('path');
-var http = require('http');
 var levelup = require('levelup');
 var sublevel = require('level-sublevel');
 var formatter = require('formatter');
@@ -29,11 +28,7 @@ var router = require('./router');
 **/
 
 module.exports = function(opts, callback) {
-  var port = (opts || {}).port || 6700;
   var datapath = path.resolve((opts || {}).datapath || 'data');
-
-  // only bind to localhost by default
-  var hostname = (opts || {}).hostname || 'localhost';
 
   // create an event emitter as the registry instance
   var registry = new EventEmitter();
@@ -41,29 +36,11 @@ module.exports = function(opts, callback) {
   // create the db
   var db = registry.db = sublevel(levelup(datapath));
 
-  // create the server instance
-  var server = registry.server = http.createServer(router(registry, opts));
-
   // create the event log
   var eventlog = registry.eventlog = require('./eventlog')(registry, opts);
 
-  debug('server listening on port: ' + port);
-  server.listen(port, hostname, function(err) {
-    var address = (! err) && server.address();
-
-    // set the registry url
-    registry.url = address && formatAddress(address);
-
-    debug('server started listening, err: ', err);
-    registry.emit(err ? 'error' : 'ready', err);
-
-    if (typeof callback == 'function') {
-      callback(err, registry);
-    }
-  });
-
-  // attach a stop function for a convenient server close
-  registry.stop = server.close.bind(server);
+  // create the router
+  registry.router = router(registry, opts);
 
   return registry;
 };

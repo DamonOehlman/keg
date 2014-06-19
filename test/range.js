@@ -1,5 +1,5 @@
 module.exports = function(registry, test) {
-  var request = require('supertest')(registry.url);
+  var request = require('supertest')('http://localhost:6700');
 
   test('request for testpack ^1.0.0 returns version 1.0.5', function(t) {
     t.plan(1);

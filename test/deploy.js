@@ -1,7 +1,7 @@
 var request = require('supertest');
 
 module.exports = function(registry, test) {
-  var request = require('supertest')(registry.url);
+  var request = require('supertest')('http://localhost:6700');
 
   test('attempt to put unversioned thing fails', function(t) {
     t.plan(1);

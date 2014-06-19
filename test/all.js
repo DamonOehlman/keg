@@ -1,8 +1,10 @@
 var test = require('tape');
-var keg = require('..');
+var keg = require('../');
 var path = require('path');
+var http = require('http');
 var rimraf = require('rimraf');
 var registry;
+var server;
 
 test('can reset the data storage', function(t) {
   t.plan(1);
@@ -10,15 +12,17 @@ test('can reset the data storage', function(t) {
 });
 
 test('can create a registry instance', function(t) {
-  t.plan(1);
-  registry = keg();
-  registry.once('ready', t.pass.bind(t, 'registry ready'));
-  registry.once('error', t.ifError.bind(t));
+  t.plan(2);
+  t.ok(registry = keg(), 'created');
+  t.equal(typeof registry.router, 'function');
 });
 
-test('server has bound to localhost only', function(t) {
+test('can start server routing to the registry', function(t) {
   t.plan(1);
-  t.equal(registry.url, 'http://127.0.0.1:6700');
+  server = http.createServer(registry.router);
+  server.listen(6700, function(err) {
+    t.ifError(err);
+  });
 });
 
 test('run subtests', function(t) {
@@ -30,9 +34,6 @@ test('run subtests', function(t) {
 
 test('can stop the registry server', function(t) {
   t.plan(1);
-  registry.stop();
+  server.close();
   t.pass('stopped');
 });
-
-require('./deploy');
-
