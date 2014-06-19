@@ -15,25 +15,25 @@ versioning over semver, so be aware of those limitations.
 ## Endpoints
 
 ```
-PUT /name/version
+PUT /:store/:name/:version
 ```
 
 Put a versioned, named payload of JSON metadata into the registry.
 
 ```
-GET /name/version
+GET /:store/:name/:version
 ```
 
-Get a versioned, named payload of JSON metadata from the registry.
+Get a versioned, named payload of JSON metadata from the `:store` registry.
 
 ```
-GET /name/range
+GET /:store/:name/:range
 ```
 
 Get the latest version of a package that satisfies the supplied [slimver range](https://github.com/DamonOehlman/slimver-spec#ranges).
 
 ```
-GET /name
+GET /:store/name
 ```
 
 Get the latest version of a named payload of JSON metadata from the registry.
@@ -43,7 +43,7 @@ Get the latest version of a named payload of JSON metadata from the registry.
 A [couchdb](http://couchdb.apache.org) like changes feed is provied at the `_changes` endpoint, with various options as outlined below:
 
 ```
-GET /_changes
+GET /:store/_changes
 ```
 
 Get all the changes since the beginning of keg data. End once we have hit the last known change.
