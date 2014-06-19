@@ -28,19 +28,18 @@ function read(req, callback) {
 }
 
 module.exports = function(registry, opts) {
-  var db = registry.db.sublevel('versions');
-
-  return function(req, res, package) {
+  return function(req, res, data) {
+    var db = registry.getStore('versions', data.store);
     var key;
 
     // TODO: tweak the encoding based on content type
-    read(req, function(err, data, encoding) {
+    read(req, function(err, payload, encoding) {
       if (err) {
         return abort(res, err.message);
       }
 
       // create the key using padded semver so lexi sorting works
-      key = package.name + '!' + svkey(package.version);
+      key = data.name + '!' + svkey(data.version);
       debug('looking for existing package: ' + key);
 
       db.get(key, function(err, value) {
@@ -50,8 +49,8 @@ module.exports = function(registry, opts) {
         }
 
         async.series([
-          db.put.bind(db, key, data, { valueEncoding: encoding }),
-          registry.eventlog(key)
+          db.put.bind(db, key, payload, { valueEncoding: encoding }),
+          registry.eventlog(data.store, key)
         ], function(err) {
           if (err) {
             return abort(res, 'putFailed');
@@ -62,11 +61,5 @@ module.exports = function(registry, opts) {
         });
       });
     });
-    req.pipe(concat(function(data) {
-      if (Array.isArray(data) && data.length === 0) {
-        return abort(res, 'emptyPayload');
-      }
-
-    }));
   };
 };

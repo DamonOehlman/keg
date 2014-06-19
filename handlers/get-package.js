@@ -4,20 +4,20 @@ var svkey = require('slimver-key');
 var slim = require('slimver');
 
 module.exports = function(registry, opts) {
-  var db = registry.db.sublevel('versions');
-
-  function getLatestItem(req, res, package) {
+  function getLatestItem(req, res, data) {
+    var db = registry.getStore('versions', data.store);
     var reader = db.createReadStream({
-      start: package.name,
+      start: data.name,
       limit: 1
     });
 
-    sendPackage(reader, res, package);
+    sendPackage(reader, res, data);
   }
 
-  function getMatchingVersion(req, res, package) {
-    var keys = slim.range(package.version).map(svkey).reverse().map(function(k) {
-      return package.name + '!' + k;
+  function getMatchingVersion(req, res, data) {
+    var db = registry.getStore('versions', data.store);
+    var keys = slim.range(data.version).map(svkey).reverse().map(function(k) {
+      return data.name + '!' + k;
     });
     var reader = db.createReadStream({
       start: keys[0],
@@ -26,18 +26,18 @@ module.exports = function(registry, opts) {
     });
 
     debug('looking for in range: ' + keys.join(' --> '));
-    sendPackage(reader, res, package);
+    sendPackage(reader, res, data);
   }
 
-  function sendPackage(reader, res, package) {
+  function sendPackage(reader, res, data) {
     var found = false;
 
     reader
-      .on('data', function(data) {
-        var parts = data.key.split('!');
+      .on('data', function(item) {
+        var parts = item.key.split('!');
         var version = svkey.unpack(parts[1]);
 
-        if (parts[0] !== package.name) {
+        if (parts[0] !== data.name) {
           return;
         }
 
@@ -45,7 +45,7 @@ module.exports = function(registry, opts) {
           'Content-Type': 'application/json',
           'x-keg-version': version
         });
-        res.end(data.value);
+        res.end(item.value);
 
         found = true;
         reader.destroy();
@@ -58,16 +58,16 @@ module.exports = function(registry, opts) {
       });
   }
 
-  return function(req, res, package) {
+  return function(req, res, data) {
     var key;
 
-    debug('attempting to get package: ', package);
+    debug('attempting to get package: ', data);
 
     // if we have no package version, get the latest item
-    if (! package.version) {
-      return getLatestItem(req, res, package);
+    if (! data.version) {
+      return getLatestItem(req, res, data);
     }
 
-    return getMatchingVersion(req, res, package);
+    return getMatchingVersion(req, res, data);
  };
 };

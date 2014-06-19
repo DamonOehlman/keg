@@ -51,13 +51,9 @@ function writeData(read, req, res, vdb, opts) {
 }
 
 module.exports = function(registry, opts) {
-  var db = registry.db.sublevel('eventlog', {
-    valueEncoding: 'utf8'
-  });
-
-  var vdb = registry.db.sublevel('versions', { valueEncoding: 'utf8' });
-
-  return function(req, res) {
+  return function(req, res, data) {
+    var db = registry.getStore('eventlog', data.store);
+    var vdb = registry.getStore('versions', data.store);
     var opts = qs.parse(req.url.split('?')[1]);
     var live = (opts || {}).live;
 

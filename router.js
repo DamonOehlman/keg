@@ -10,9 +10,9 @@ module.exports = function(registry, opts) {
   };
 
   var router = bee.route({
-    '/`name`': packageRoutes,
-    '/`name`/`version`': packageRoutes,
-    '/_changes': require('./handlers/changesfeed')(registry, opts)
+    '/`store`/`name`': packageRoutes,
+    '/`store`/`name`/`version`': packageRoutes,
+    '/`store`/_changes': require('./handlers/changesfeed')(registry, opts)
   });
 
   function putPackage(req, res, tokens) {

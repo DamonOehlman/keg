@@ -39,8 +39,13 @@ module.exports = function(opts, callback) {
   // create the event log
   var eventlog = registry.eventlog = require('./eventlog')(registry, opts);
 
+  function getStore(section, storeName) {
+    return db.sublevel(section + ':' + (storeName || 'main'));
+  }
+
   // create the router
   registry.router = router(registry, opts);
+  registry.getStore = getStore;
 
   return registry;
 };
