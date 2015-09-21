@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "rimraf": "^2",
-    "supertest": "~0.13",
-    "tape": "^2"
+    "supertest": "^1.1.0",
+    "tape": "^4.2.0"
   }
 }
