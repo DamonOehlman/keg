@@ -27,11 +27,11 @@ module.exports = function(registry, opts) {
     }
 
     if (! package.name) {
-      return abort(res, 'emptyPackageName')
+      return abort(res, 'emptyPackageName');
     }
 
     if (! package.version) {
-      return abort(res, 'invalidPackageVersion')
+      return abort(res, 'invalidPackageVersion');
     }
 
     return true;

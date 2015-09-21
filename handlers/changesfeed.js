@@ -62,6 +62,6 @@ module.exports = function(registry, opts) {
     pull(
       pl.read(db, { tail: live, min: (opts || {}).since }),
       pull.Sink(writeData)(req, res, vdb, opts)
-    )
+    );
   };
 };

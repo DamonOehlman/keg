@@ -7,8 +7,7 @@ module.exports = function(registry, opts) {
     return function(callback) {
       db.put(ts(), line, callback);
     };
-  };
-
+  }
 
   return function(store, line, callback) {
     if (! callback) {
