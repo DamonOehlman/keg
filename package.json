@@ -35,7 +35,7 @@
     "pull-level": "^1.1.10",
     "pull-stream": "^2.23.0",
     "slimver": "^1.0.0",
-    "slimver-key": "~0.2"
+    "slimver-key": "^1.0.0"
   },
   "devDependencies": {
     "rimraf": "^2",
